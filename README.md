@@ -1,18 +1,53 @@
-# Vue 3 + TypeScript + Vite
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## APIs utilizadas:
 
-## Recommended IDE Setup
+API de filmes: https://www.omdbapi.com/
+API de CEP: https://viacep.com.br/
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Funcionalidades:
 
-## Type Support For `.vue` Imports in TS
+Usuário:
+ - Preciso realizar um cadastro de um usuário;
+ - Preciso editar as informações de um usuário já cadastrado;
+ - Preciso listar todos os usuários;
+ - Preciso ter a opção de desativar um usuário(soft delete)
+ - Usuário precisa logar e deslogar da aplicação
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+Cliente:
+ - Preciso realizar um cadastro de um cliente;
+ - Preciso editar as informações de um cliente já cadastrado;
+ - Preciso listar todos os cliente;
+ - Preciso ter a opção de desativar um cliente(soft delete)
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+Locação:
+ - Preciso realizar um cadastro de uma nova locação;
+ - Preciso listar todas as locação;
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+## Propriedades das entidades:
+
+Usuário: { id, name, doc, password, status } todos obrigatórios;
+Cliente: { id, name, surname, cpf, contacts: { email, phone }, address: { zipCode, publicPlace, neighborhood, city, state }};
+Locação: { customers, movies, rentDate, deliveryDate, user, status }
+Filmes: { title, year, runtime, genre, director, plot, language, poster }
+
+Observações:
+ - Status do usuário de ser ativo ou inativo
+ - Status da locação de ser alugado ou entregue
+
+## Regras de negócios:
+
+- Lista de filmes deve possuir busca por nome, filtros por ano e listar APENAS filmes
+- Lista de clientes deve possuir busca por nome e documento e filtro por status
+- Lista de locações deve possuir busca por cliente e filtro de data de locação e de entrega
+- Caso não tenha retorno do CEP informado, devemos deixar o usuario editar manualmente os campos
+- Toda alteração em qualquer área (usuário, cliente e locação) deve exibir um feedback visual (modal ou alert toggle) de sucesso ou falha;
+- Usuários logados devem permanecer logados ao revisitar a aplicação
+- Usuários com status desativado não devem logar na aplicação
+- Clientes com uma locação em status alugado não podem realizar outra locação
+
+## Armazenamento das informações:
+
+- Usuários, clientes e locações devem ficar armazenados no local storage do navegador
+
+## Autenticação do usuário:
+
