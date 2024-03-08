@@ -4,11 +4,21 @@ export default {
   theme: {
     extend: {
       colors: {
-        brand: "#D6E900"
+        brand: "#D6E900",
+        "brand-hover": "#ACBB05",
+        white: "#FFFFFF"
       },
       fontFamily: {
-        Inter: ["Inter, sans-serif"]
+        inter: ["Inter, sans-serif"]
       },
+      screens: {
+        xs: "460px",
+        sm: "568px",
+        lg: "1024px"
+      },
+      minWidth: {
+        md: "600px",
+      }
     },
   },
   plugins: [],
