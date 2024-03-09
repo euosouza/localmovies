@@ -1,5 +1,5 @@
 <template>
-  <component :is="layout">
+  <component :is="layout" class="box-border bg-white font-inter">
     <RouterView />
   </component>
 </template>
@@ -11,6 +11,4 @@ import { computed } from "vue";
 const { currentRoute } = useRouter();
 
 const layout = computed(() => currentRoute.value.meta.layout);
-
-
 </script>

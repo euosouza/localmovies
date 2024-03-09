@@ -27,6 +27,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: "update/:id",
+        name: "user-update",
         component: () =>
           import(/* webpackChunkName: "user" */ "../views/user/UserUpdateView.vue"),
       }
@@ -49,6 +50,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: "update/:id",
+        name: "customer-update",
         component: () =>
           import(/* webpackChunkName: "customers" */ "../views/customer/CustomerUpdateView.vue"),
       }
@@ -91,7 +93,8 @@ const routes: Array<RouteRecordRaw> = [
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
+  routes,
+  linkActiveClass: "bg-gray-200 rounded font-bold stroke-2"
 });
 
 export default router;
