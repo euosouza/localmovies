@@ -123,7 +123,7 @@
 
 <script setup lang="ts">
 import { FiSearch, FiEye } from "vue3-icons/fi";
-import { format } from "date-fns";
+import { format, parseISO  } from "date-fns";
 
 import {  onMounted, ref } from "vue";
 import { computed } from "vue";
@@ -166,7 +166,8 @@ function handleSearch() {
     locations.value = store.locations.filter((u) => u.status === form.value.status);
   }
   else if(!form.value.customer && !form.value.status && form.value.deliveryDate) {
-    locations.value = store.locations.filter((u) => u.deliveryDate === format(form.value.deliveryDate, "dd/MM/yyyy"));
+    locations.value = store.locations.filter((u) =>
+    u.deliveryDate === format(parseISO(form.value.deliveryDate), "dd/MM/yyyy"));
 
     if(!locations.value.length){
       form.value.error = "Não temos nenhuma locação nessa data";
@@ -176,9 +177,9 @@ function handleSearch() {
   else if(form.value.customer && form.value.status && form.value.deliveryDate) {
     locations.value= store.locations.filter((u) =>
       u.customer.name.toLowerCase().includes(form.value.customer.toLowerCase())
-      && u.status === form.value.status && u.deliveryDate === format(form.value.deliveryDate, "dd/MM/yyyy"));
+      && u.status === form.value.status && u.deliveryDate === format(parseISO(form.value.deliveryDate), "dd/MM/yyyy"));
     if(!locations.value.length){
-      form.value.error = "Cliente não existe";
+      form.value.error = "Cliente não encontrado";
       locations.value =[...store.locations];
     }
   }
@@ -194,7 +195,7 @@ function handleSearch() {
   else if(form.value.customer && !form.value.status && form.value.deliveryDate){
     locations.value = store.locations.filter((u) =>
       u.customer.name.toLowerCase().includes(form.value.customer.toLowerCase())
-      && u.deliveryDate === format(form.value.deliveryDate, "dd/MM/yyyy"));
+      && u.deliveryDate === format(parseISO(form.value.deliveryDate), "dd/MM/yyyy"));
 
     if(!locations.value.length){
       form.value.error = "Cliente não encontrado";
