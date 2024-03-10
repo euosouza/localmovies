@@ -65,7 +65,7 @@ import { FiUser } from "vue3-icons/fi";
 import { useUsersStore } from "../../store/useUsersStore";
 import {  UserCreatedProps } from "../../types/userTypes";
 
-import InputWrapperComponent from "../../components/Input/InputWrapperComponent .vue";
+import InputWrapperComponent from "../../components/Input/InputWrapperComponent.vue";
 import InputBaseComponent from "../../components/Input/InputBaseComponent.vue";
 import ButtonComponent from "../../components/ButtonComponent.vue";
 import BackRouterLinkComponent from "../../components/BackRouterLinkComponent.vue";

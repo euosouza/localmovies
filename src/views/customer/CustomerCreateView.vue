@@ -161,7 +161,7 @@ import { FiUser } from "vue3-icons/fi";
 import { useCustomersStore } from "../../store/useCustomersStore";
 import {  CustomerCreateProps, Status } from "../../types/customerTypes";
 
-import InputWrapperComponent from "../../components/Input/InputWrapperComponent .vue";
+import InputWrapperComponent from "../../components/Input/InputWrapperComponent.vue";
 import InputBaseComponent from "../../components/Input/InputBaseComponent.vue";
 import ButtonComponent from "../../components/ButtonComponent.vue";
 import BackRouterLinkComponent from "../../components/BackRouterLinkComponent.vue";

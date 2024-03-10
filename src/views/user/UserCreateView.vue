@@ -65,7 +65,7 @@ import { FiUser } from "vue3-icons/fi";
 import { useUsersStore } from "../../store/useUsersStore";
 import {  UserCreatedProps } from "../../types/userTypes";
 
-import InputWrapperComponent from "../../components/Input/InputWrapperComponent .vue";
+import InputWrapperComponent from "../../components/Input/InputWrapperComponent.vue";
 import InputBaseComponent from "../../components/Input/InputBaseComponent.vue";
 import ButtonComponent from "../../components/ButtonComponent.vue";
 import BackRouterLinkComponent from "../../components/BackRouterLinkComponent.vue";
@@ -74,13 +74,13 @@ import TextSectionPageComponent from "../../components/TextSectionPageComponent.
 const router = useRouter();
 
 const user= ref<UserCreatedProps>({ name: "",  doc: "", password: "" });
-const { addUserAsync } = useUsersStore();
+const store= useUsersStore();
 
 async function handleSubmit(e: Event) {
   e.preventDefault();
 
   // TODO: Adicionar modal ou alert para ambos retornos
-  addUserAsync(user.value)
+  store.addUserAsync(user.value)
     .then(() => router.push({ path: "/user" }))
     .catch((e) => console.log(e));
 }

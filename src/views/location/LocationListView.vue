@@ -84,7 +84,8 @@ import { colorStatus } from "../../types/locationTypes";
 
 import StatusComponent from "../../components/StatusComponent.vue";
 import TextSectionPageComponent from "../../components/TextSectionPageComponent.vue";
+import { storeToRefs } from "pinia";
 
-const { locations, tabs } = useLocationStore();
-
+const store = useLocationStore();
+const { locations, tabs } = storeToRefs(store);
 </script>

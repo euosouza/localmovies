@@ -102,11 +102,11 @@
 import { FiSearch, FiSettings, FiEye } from "vue3-icons/fi";
 
 import { useCustomersStore } from "../../store/useCustomersStore";
-import { colorStatus } from "../../types/userTypes";
+import { colorStatus } from "../../types/customerTypes";
 
 import StatusComponent from "../../components/StatusComponent.vue";
+import { storeToRefs } from "pinia";
 
-const { customers, tabs } = useCustomersStore();
-
-
+const store = useCustomersStore();
+const { tabs, customers } = storeToRefs(store);
 </script>

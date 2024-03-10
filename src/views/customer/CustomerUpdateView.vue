@@ -176,13 +176,13 @@ import { FiUser } from "vue3-icons/fi";
 import { useCustomersStore } from "../../store/useCustomersStore";
 import {  Status, Customer  } from "../../types/customerTypes";
 
-import InputWrapperComponent from "../../components/Input/InputWrapperComponent .vue";
+import InputWrapperComponent from "../../components/Input/InputWrapperComponent.vue";
 import InputBaseComponent from "../../components/Input/InputBaseComponent.vue";
 import ButtonComponent from "../../components/ButtonComponent.vue";
 import BackRouterLinkComponent from "../../components/BackRouterLinkComponent.vue";
 import TextSectionPageComponent from "../../components/TextSectionPageComponent.vue";
 import InputCheckboxBaseComponent from "../../components/InputCheckbox/InputCheckboxBaseComponent.vue";
-import InputCheckboxWrapperComponent  from "../../components/InputCheckbox/InputCheckboxWrapperComponent .vue";
+import InputCheckboxWrapperComponent  from "../../components/InputCheckbox/InputCheckboxWrapperComponent.vue";
 
 const router = useRouter();
 const route = useRoute();
