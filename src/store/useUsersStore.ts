@@ -48,7 +48,7 @@ export const useUsersStore = defineStore("users", () => {
       if(!userCheck) {
         reject(new Error("Não existe esse usuário"));
       } else {
-        const listRemovedUser = users.value.filter((u: User) => u.doc !== user.doc);
+        const listRemovedUser = users.value.filter((u: User) => u.id !== user.id);
         users.value = [...listRemovedUser, user];
         resolve(true);
       }
