@@ -4,7 +4,7 @@ import { ref } from "vue";
 
 import { Customer, Status, CustomerCreateProps } from "../types/customerTypes";
 
-const CUSTOMRES_DEFAULT: Customer[] = [
+const CUSTOMERS_DEFAULT: Customer[] = [
   {
     id: 1, name: "Cliente 1", surname: "Sobrenome", cpf: "12345d6", status: Status.ATIVO,
     contacts: { email: "email@gmail.com", phone: "(31) 9999-9999"},
@@ -40,7 +40,7 @@ const CUSTOMRES_DEFAULT: Customer[] = [
 ];
 
 export const useCustomersStore = defineStore("customers", () => {
-  const customers = useStorage<Customer[]>("customers", CUSTOMRES_DEFAULT);
+  const customers = useStorage<Customer[]>("customers", CUSTOMERS_DEFAULT);
   const tabs = ref(["Id", "Nome", "CPF", "Contato","Endereço", "Status", "Ação"]);
 
   function addCustomerAsync(customer: CustomerCreateProps) {
