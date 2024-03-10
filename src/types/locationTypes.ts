@@ -1,19 +1,22 @@
+import { Customer } from "./customerTypes";
+import { User } from "./userTypes";
+
 export interface Location {
   id: number | null,
-  customer_id: number,
+  customer: Customer,
   movies: string,
   rentDate: string,
   deliveryDate: string,
-  user_id: number,
+  user: User,
   status: Status
 }
 
 export interface LocationCreateProps {
-  customer_id: number,
+  customer: Customer,
   movies: string,
   rentDate: string,
   deliveryDate: string,
-  user_id: number,
+  user: User,
   status: Status
 }
 
