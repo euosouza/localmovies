@@ -6,7 +6,7 @@
     <div class="grid gap-6">
       <InputWrapperComponent label="Nome" for-name="name">
         <template #icon>
-          <FiUser class="absolute left-3 text-lg" />
+          <FiUser />
         </template>
 
         <template #input>
@@ -22,7 +22,7 @@
 
       <InputWrapperComponent label="Documento" for-name="doc">
         <template #icon>
-          <FiUser class="absolute left-3 text-lg" />
+          <FiUser  />
         </template>
 
         <template #input>
@@ -38,7 +38,7 @@
 
       <InputWrapperComponent label="Senha" for-name="password">
         <template #icon>
-          <FiUser class="absolute left-3 text-lg" />
+          <FiUser  />
         </template>
 
         <template #input>

@@ -14,7 +14,7 @@
 
   <label for="name" class="text-sm grid gap-1 cursor-pointer w-full md:w-2/4">
     <span class="relative flex items-center ">
-      <FiSearch class="absolute left-3 text-lg" />
+      <FiSearch  />
       <input
         class="p-4 pl-10 h-12 w-full
         border-gray-400 border rounded box-borderplaceholder-gray-400
@@ -29,7 +29,7 @@
 
   <label for="name" class="text-sm grid gap-1 cursor-pointer w-full xs:min-w-max xs:flex-1 md:w-1/4">
     <span class="relative flex items-center ">
-      <FiEye class="absolute left-3 text-lg" />
+      <FiEye  />
       <select name="" id=""
         class="p-4 pl-10 h-12 w-full
         border-gray-400 border rounded box-borderplaceholder-gray-400

@@ -6,7 +6,7 @@
     <div class="grid gap-6">
       <InputWrapperComponent label="Nome" for-name="name">
         <template #icon>
-          <FiUser class="absolute left-3 text-lg" />
+          <FiUser  />
         </template>
 
         <template #input>
@@ -22,7 +22,7 @@
 
       <InputWrapperComponent label="Sobrenome" for-name="surname">
         <template #icon>
-          <FiUser class="absolute left-3 text-lg" />
+          <FiUser  />
         </template>
 
         <template #input>
@@ -38,7 +38,7 @@
 
       <InputWrapperComponent label="CPF" for-name="cpf">
         <template #icon>
-          <FiUser class="absolute left-3 text-lg" />
+          <FiUser  />
         </template>
 
         <template #input>
@@ -54,7 +54,7 @@
 
       <InputWrapperComponent label="E-mail" for-name="email">
         <template #icon>
-          <FiUser class="absolute left-3 text-lg" />
+          <FiUser  />
         </template>
 
         <template #input>
@@ -70,7 +70,7 @@
 
       <InputWrapperComponent label="Telefone" for-name="phone">
         <template #icon>
-          <FiUser class="absolute left-3 text-lg" />
+          <FiUser  />
         </template>
 
         <template #input>
@@ -86,7 +86,7 @@
 
       <InputWrapperComponent label="CEP" for-name="cep">
         <template #icon>
-          <FiUser class="absolute left-3 text-lg" />
+          <FiUser  />
         </template>
 
         <template #input>
@@ -102,7 +102,7 @@
 
       <InputWrapperComponent label="Endereço" for-name="neighborhood">
         <template #icon>
-          <FiUser class="absolute left-3 text-lg" />
+          <FiUser  />
         </template>
 
         <template #input>
@@ -118,7 +118,7 @@
 
       <InputWrapperComponent label="Cidade" for-name="city">
         <template #icon>
-          <FiUser class="absolute left-3 text-lg" />
+          <FiUser  />
         </template>
 
         <template #input>
@@ -134,7 +134,7 @@
 
       <InputWrapperComponent label="Estado" for-name="state">
         <template #icon>
-          <FiUser class="absolute left-3 text-lg" />
+          <FiUser  />
         </template>
 
         <template #input>
