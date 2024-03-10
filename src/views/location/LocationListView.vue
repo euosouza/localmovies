@@ -4,7 +4,7 @@
       <TextSectionPageComponent title="Bem-vindo!" text="Aqui está uma lista de locações." />
 
     </div>
-    <RouterLink to="/customer/create" class="flex items-center justify-center gap-2 bg-gray-900 h-12
+    <RouterLink to="/location/create" class="flex items-center justify-center gap-2 bg-gray-900 h-12
       hover:bg-gray-700 duration-200 ease-in
       box-border p-4 fill-current text-white stroke-2 rounded w-48">
       Criar locação
