@@ -1,7 +1,8 @@
 <template>
   <input
-    class="w-full md:w-3/4 lg:w-2/4 p-4 pl-10 h-12
-      border-gray-400 border rounded box-borderplaceholder-gray-400"
+    class="w-full p-4 pl-10 h-12 border-gray-400
+      border rounded box-border border-gray-500 placeholder-gray-40
+    "
     @input="updateValue"
     :value="modelValue"
     v-bind="$attrs"

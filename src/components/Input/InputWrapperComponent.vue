@@ -4,7 +4,8 @@
       {{ label }}
     </span>
     <span class="relative flex items-center ">
-      <slot name="icon" />
+      <span class="absolute left-3 text-lg"><slot name="icon" /></span>
+
       <slot name="input" />
     </span>
   </label>
@@ -14,7 +15,7 @@
 import { defineProps } from "vue";
 
 const { label } = defineProps({
-  label: {type: String, required: true },
+  label: {type: String  },
   forName: {type: String, required: true },
 });
 
