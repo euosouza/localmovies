@@ -1,8 +1,8 @@
 <template>
-  <div class="flex flex-col gap-4 sm:items-center sm:justify-between sm:flex-row sm:mb-16">
+  <div class="flex flex-col gap-4 mb-8 sm:items-center sm:justify-between sm:flex-row sm:mb-10">
     <div class="">
-      <h1 class="text-3xl font-bold">Bem-vindo! </h1>
-      <p>Aqui está uma lista de usuário.</p>
+      <TextSectionPageComponent title="Bem-vindo!" text="Aqui está uma lista de usuários." />
+
     </div>
     <RouterLink to="/user/create" class="flex items-center justify-center gap-2 bg-gray-900 h-12
       hover:bg-gray-700 duration-200 ease-in
@@ -11,43 +11,66 @@
     </RouterLink>
   </div>
 
-  <form class="mt-8 flex flex-col xs:flex-row flex-wrap gap-2 w-full md:items-center md:justify-start md:gap-4 ">
+  <div class="text-sm flex justify-end mb-4">
+    <button
+      @click="clearSearch"
+      class="hover:text-brand duration-200"
+    >
+    Limpar filtros
+  </button>
+  </div>
 
-    <label for="name" class="text-sm grid gap-1 cursor-pointer w-full md:w-2/4">
-      <span class="relative flex items-center ">
-        <FiSearch class="absolute left-3 text-lg" />
-        <input
-          class="p-4 pl-10 h-12 w-full
-          border-gray-400 border rounded box-borderplaceholder-gray-400
-          "
-          type="text"
-          name="name"
-          id="name"
-          placeholder="Buscar usuário"
-        >
-      </span>
-    </label>
+  <form class="w-full">
+    <div class="flex gap-4 flex-wrap justify-end">
+      <InputWrapperComponent
+        for-name="name"
+        class="flex-1 min-w-max w-full"
+      >
+        <template #icon>
+          <FiSearch />
+        </template>
 
-    <label for="name" class="text-sm grid gap-1 cursor-pointer w-full xs:min-w-max xs:flex-1 md:w-1/4">
-      <span class="relative flex items-center ">
-        <FiEye class="absolute left-3 text-lg" />
-        <select name="" id=""
-          class="p-4 pl-10 h-12 w-full
-          border-gray-400 border rounded box-borderplaceholder-gray-400
-          "
-        >
-          <option value="" disabled>Status</option>
-          <option value="Ativo">Ativo</option>
-          <option value="Desativado">Desativado</option>
-        </select>
-      </span>
-    </label>
+        <template #input>
+          <InputBaseComponent
+            placeholder="Buscar usuário"
+            type="text"
+            id="name"
+            required
+            v-model="form.name"
+            @update:model-value="handleUpdateInput"
+          />
+        </template>
+      </InputWrapperComponent>
 
-    <button class="flex items-center justify-center gap-2 bg-gray-900 h-12
-      hover:bg-gray-700 duration-200 ease-in
-      box-border p-4 fill-current text-white stroke-2 rounded w-48 xs:min-w-max xs:flex-1 md:w-1/4">
-      Buscar
-    </button>
+      <InputSelectWrapperComponent
+        for-name="status"
+        class="min-w-max w-full md:w-auto"
+      >
+        <template #icon>
+          <FiEye />
+        </template>
+
+        <template #input>
+          <InputSelectBaseComponent
+            id="status"
+            required
+            v-model="form.status"
+            :list="['Ativo', 'Desativado']"
+            @update:model-value="handleUpdateInput"
+          />
+        </template>
+      </InputSelectWrapperComponent>
+
+      <ButtonComponent
+        class="min-w-max"
+        title="Buscar"
+        @click.prevent="handleSearch"
+      />
+    </div>
+
+    <div class="relative mt-1 ml-2">
+      <span v-if="form.error" class="text-red-500 text-xs absolute">{{ form.error }}</span>
+    </div>
   </form>
 
   <div class="overflow-auto mt-10 max-h-80 shadow-md">
@@ -56,12 +79,12 @@
     >
       <thead class="border-b border-gray-400 w-full">
         <tr>
-          <th class="px-3 py-3" v-for="(item, index) in tabs" :key="index">{{ item }}</th>
+          <th class="px-3 py-3" v-for="(item, index) in store.tabs" :key="index">{{ item }}</th>
         </tr>
       </thead>
 
       <tbody class="text-gray-500 text-sm w-full">
-        <tr v-for="(item, index) in users" :key="index" class="border-b border-gray-400">
+        <tr v-for="(item, index) in usersRender" :key="index" class="border-b border-gray-400">
           <td class="px-3 py-3">{{ item.id }}</td>
           <td class="px-3 py-3">
             <RouterLink :to="{params: {id: item.id}, name: 'user-update'}" class="hover:text-brand duration-200">
@@ -86,18 +109,77 @@
       </tbody>
     </table>
   </div>
-
 </template>
 
 <script setup lang="ts">
 import { FiSearch, FiSettings, FiEye } from "vue3-icons/fi";
 
+import {  onMounted, ref } from "vue";
+import { computed } from "vue";
+
 import { useUsersStore } from "../../store/useUsersStore";
-import { colorStatus } from "../../types/userTypes";
+import {  User,  colorStatus } from "../../types/userTypes";
 
 import StatusComponent from "../../components/StatusComponent.vue";
+import ButtonComponent from "../../components/ButtonComponent.vue";
+import InputWrapperComponent from "../../components/Input/InputWrapperComponent.vue";
+import InputBaseComponent from "../../components/Input/InputBaseComponent.vue";
+import InputSelectWrapperComponent from "../../components/InputSelect/InputSelectWrapperComponent.vue";
+import InputSelectBaseComponent from "../../components/InputSelect/InputSelectBaseComponent.vue";
+import TextSectionPageComponent from "../../components/TextSectionPageComponent.vue";
 
-const { users, tabs } = useUsersStore();
+const store = useUsersStore();
+const initialValueForm = { name: "", status: "", error: "" };
+const form = ref(initialValueForm);
+const users = ref<User[]>([]);
+
+onMounted(() => {
+  users.value =[...store.users];
+});
+
+const usersRender = computed<User[]>(() => {
+  return users.value;
+});
+
+function handleSearch() {
+  if(form.value.name && !form.value.status){
+    users.value = store.users.filter((u) => u.name.toLowerCase().includes(form.value.name.toLowerCase()));
+
+    if(!users.value.length){
+      form.value.error = "Usuário não existe";
+      users.value =[...store.users];
+    }
+  }
+  else if(!form.value.name && form.value.status){
+    users.value = store.users.filter((u) => u.status === form.value.status);
+  }
+  else if(form.value.name && form.value.status) {
+    users.value= store.users.filter((u) =>
+      u.name.toLowerCase().includes(form.value.name.toLowerCase()) && u.status === form.value.status);
+
+    if(!users.value.length){
+      form.value.error = "Usuário não existe";
+      users.value =[...store.users];
+    }
+  }
+  else{
+    form.value.error = "Preencha ou selecione no minimo um campo";
+  }
+}
+
+function handleUpdateInput() {
+  form.value.error = "";
+}
 
 
+function resetForm() {
+  form.value.error = "";
+  form.value.name = "";
+  form.value.status = "";
+}
+
+function clearSearch() {
+  resetForm();
+  users.value =[...store.users];
+}
 </script>
