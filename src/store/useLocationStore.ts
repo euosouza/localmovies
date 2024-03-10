@@ -1,23 +1,45 @@
+import { ref } from "vue";
 import { defineStore } from "pinia";
 import { useStorage } from "@vueuse/core";
-import { ref } from "vue";
 
 import { Status, Location, LocationCreateProps } from "../types/locationTypes";
-const date = new Date().toLocaleDateString("pt-BR");
+import { Status as StatusUser} from "../types/userTypes";
+import { Status as StatusCustomer} from "../types/customerTypes";
+
+const CUSTOMER_1 = {
+  id: 1, name: "Cliente 1", surname: "Sobrenome", cpf: "12345d6", status: StatusCustomer.ATIVO,
+  contacts: { email: "email@gmail.com", phone: "(31) 9999-9999"},
+  address: {
+    zipCode: "32568452", publicPlace: "Rua teste, 56",
+    neighborhood: "Prado", city: "Belo horizonte", state: "MG"
+  }
+};
+
+const CUSTOMER_2 = {
+  id: 2, name: "Cliente 2", surname: "Sobrenome", cpf: "1234h56", status: StatusCustomer.ATIVO,
+  contacts: { email: "email@gmail.com", phone: "(31) 9999-9999"},
+  address: {
+    zipCode: "32568452", publicPlace: "Rua teste, 56",
+    neighborhood: "Prado", city: "Belo horizonte", state: "MG"
+  }
+};
+
+const USER_1 = { id: 1, name: "Victor Souza", doc: "123456", status: StatusUser.ATIVO, password: "123" };
+const USER_2 = { id: 2, name: "Jonh Snow", doc: "654321", status: StatusUser.ATIVO, password: "123"  };
 
 
 const USERS_DEFAULT: Location[] = [
   {
-    id: 1, customer_id: 1, movies: "123456",
-    rentDate: date, deliveryDate: date, user_id: 2, status: Status.ALUGADO
+    id: 1, customer: CUSTOMER_1, movies: "123456",
+    rentDate: "10/03/2024", deliveryDate: "11/03/2024", user: USER_1, status: Status.ALUGADO
   },
   {
-    id: 2, customer_id: 3, movies: "123456",
-    rentDate: date, deliveryDate: date, user_id: 1, status: Status.ALUGADO
+    id: 2, customer: CUSTOMER_2, movies: "123456",
+    rentDate: "09/02/2024", deliveryDate: "11/02/2024", user: USER_2, status: Status.ENTREGUE
   },
   {
-    id: 3, customer_id: 4, movies: "123456",
-    rentDate: date, deliveryDate: date, user_id: 1, status: Status.ALUGADO
+    id: 3, customer: CUSTOMER_1, movies: "123456",
+    rentDate: "02/10/2023", deliveryDate: "05/10/2023", user: USER_2, status: Status.ENTREGUE
   },
 ];
 
@@ -28,7 +50,7 @@ export const useLocationStore = defineStore("users", () => {
   function addLocationAsync(location: LocationCreateProps) {
     return new Promise((resolve, reject) => {
       const checkLocation = locations.value.find((l) =>
-        l.customer_id === location.customer_id && l.status == Status.ALUGADO
+        l.customer.id === location.customer.id && l.status == Status.ALUGADO
       );
 
       if (!checkLocation) {
