@@ -2,9 +2,9 @@
 Localmovies, um software de gerenciamento de locação de filmes desenvolvido para facilitar o controle e organização das locações.
 
 ## Installation
-Clone repositório - git clone https://github.com/kutia-software-company/vue3-starter.
-Instalar dependências do projeto — npm install.
-Rodar app — npm run dev
+- Clone repositório - git clone https://github.com/kutia-software-company/vue3-starter.
+- Instalar dependências do projeto — npm install.
+- Rodar app — npm run dev
 
 ## Tecnologias
 - Vue 3
@@ -15,8 +15,8 @@ Rodar app — npm run dev
 
 ## APIs utilizadas:
 
-API de filmes: https://www.omdbapi.com/
-API de CEP: https://viacep.com.br/
+- API de filmes: https://www.omdbapi.com/
+- API de CEP: https://viacep.com.br/
 
 ## Funcionalidades:
 
@@ -39,10 +39,10 @@ Locação:
 
 ## Propriedades das entidades:
 
-Usuário: { id, name, doc, password, status } todos obrigatórios;
-Cliente: { id, name, surname, cpf, contacts: { email, phone }, address: { zipCode, publicPlace, neighborhood, city, state }};
-Locação: { customers, movies, rentDate, deliveryDate, user, status }
-Filmes: { title, year, runtime, genre, director, plot, language, poster }
+- Usuário: { id, name, doc, password, status } todos obrigatórios;
+- Cliente: { id, name, surname, cpf, contacts: { email, phone }, address: { zipCode, publicPlace, neighborhood, city, state }};
+- Locação: { customers, movies, rentDate, deliveryDate, user, status }
+- Filmes: { title, year, runtime, genre, director, plot, language, poster }
 
 Observações:
  - Status do usuário de ser ativo ou inativo
