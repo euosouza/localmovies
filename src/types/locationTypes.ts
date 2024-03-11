@@ -14,10 +14,7 @@ export interface Location {
 export interface LocationCreateProps {
   customer: Customer,
   movies: string,
-  rentDate: string,
   deliveryDate: string,
-  user: User,
-  status: Status
 }
 
 export enum Status {

@@ -38,7 +38,7 @@
 
       <InputWrapperComponent label="Senha" for-name="password">
         <template #icon>
-          <FiUser  />
+          <FiLock  />
         </template>
 
         <template #input>
@@ -60,7 +60,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { FiUser } from "vue3-icons/fi";
+import { FiUser, FiLock } from "vue3-icons/fi";
 
 import { useUsersStore } from "../../store/useUsersStore";
 import {  UserCreatedProps } from "../../types/userTypes";

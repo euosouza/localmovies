@@ -107,7 +107,7 @@
       <tbody class="text-gray-500 text-sm w-full">
         <tr v-for="(item, index) in locationsRender" :key="index" class="border-b border-gray-400">
           <td class="px-3 py-3">{{ item.id }}</td>
-          <td class="px-3 py-3">{{ item.customer.name }}</td>
+          <td class="px-3 py-3">{{ item.customer.name }} {{ item.customer.surname }}</td>
           <td class="px-3 py-3">{{ item.movies }}</td>
           <td class="px-3 py-3">{{ item.rentDate }}</td>
           <td class="px-3 py-3">{{ item.deliveryDate }}</td>

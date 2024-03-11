@@ -4,50 +4,55 @@
 
   <form class="mt-8" @submit="handleSubmit">
     <div class="grid gap-6">
-      <InputWrapperComponent label="Nome" for-name="name">
+      <InputWrapperComponent label="Cliente" for-name="customer">
         <template #icon>
           <FiUser  />
         </template>
 
         <template #input>
           <InputBaseComponent
-            placeholder="Digite o nome do locação"
-            type="text"
-            id="name"
+            v-model="location.customer.name"
+            placeholder="Digite o nome do cliente"
+            type="search"
+            id="customer"
             required
-            v-model="user.name"
+            list="list-customer"
+          />
+          <datalist id="list-customer">
+            <option v-for="(customer, index) in filterCustomer" :key="index">
+              {{ customer.name }} {{ customer.surname }}
+            </option>
+          </datalist>
+        </template>
+      </InputWrapperComponent>
+
+      <InputWrapperComponent label="Filmes" for-name="movie">
+        <template #icon>
+          <FiUser  />
+        </template>
+
+        <template #input>
+          <InputBaseComponent
+            placeholder="Digite seu filme"
+            type="text"
+            id="movie"
+            required
+            v-model="location.movies"
           />
         </template>
       </InputWrapperComponent>
 
-      <InputWrapperComponent label="Documento" for-name="doc">
+      <InputWrapperComponent label="Data da devolução" for-name="deliveryDate">
         <template #icon>
           <FiUser  />
         </template>
 
         <template #input>
           <InputBaseComponent
-            placeholder="Digite seu documento"
-            type="text"
-            id="doc"
+            type="date"
+            id="deliveryDate"
             required
-            v-model="user.doc"
-          />
-        </template>
-      </InputWrapperComponent>
-
-      <InputWrapperComponent label="Senha" for-name="password">
-        <template #icon>
-          <FiUser  />
-        </template>
-
-        <template #input>
-          <InputBaseComponent
-            placeholder="Digite sua senha"
-            type="password"
-            id="password"
-            required
-            v-model="user.password"
+            v-model="location.deliveryDate"
           />
         </template>
       </InputWrapperComponent>
@@ -58,12 +63,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { FiUser } from "vue3-icons/fi";
 
-import { useUsersStore } from "../../store/useUsersStore";
-import {  UserCreatedProps } from "../../types/userTypes";
+import { useLocationStore } from "../../store/useLocationStore";
+import {  LocationCreateProps } from "../../types/locationTypes";
+
+import { useCustomersStore } from "../../store/useCustomersStore";
+import { Customer, Status as StatusCustomer } from "../../types/customerTypes";
 
 import InputWrapperComponent from "../../components/Input/InputWrapperComponent.vue";
 import InputBaseComponent from "../../components/Input/InputBaseComponent.vue";
@@ -71,18 +79,32 @@ import ButtonComponent from "../../components/ButtonComponent.vue";
 import BackRouterLinkComponent from "../../components/BackRouterLinkComponent.vue";
 import TextSectionPageComponent from "../../components/TextSectionPageComponent.vue";
 
+const initialCustomer = {
+    id: null, name: "", surname: "", cpf: "", status: StatusCustomer.ATIVO,
+    contacts: { email: "", phone: ""},
+    address: {
+      zipCode: "", publicPlace: "",
+      neighborhood: "", city: "", state: ""
+    }
+};
+
 const router = useRouter();
+const location= ref<LocationCreateProps>({ customer: initialCustomer,  movies: "", deliveryDate: "" });
+const store = useLocationStore();
+const storeCustomer = useCustomersStore();
 
-const user= ref<UserCreatedProps>({ name: "",  doc: "", password: "" });
-const { addUserAsync } = useUsersStore();
-
-async function handleSubmit(e: Event) {
+function handleSubmit(e: Event) {
   e.preventDefault();
 
   // TODO: Adicionar modal ou alert para ambos retornos
-  addUserAsync(user.value)
-    .then(() => router.push({ path: "/user" }))
+  // TODO: Ainda preciso pegar o cliente da locação e passar como parametro
+  store.addLocationAsync(location.value)
+    .then(() => router.push({ path: "/location" }))
     .catch((e) => console.log(e));
 }
+
+const filterCustomer = computed<Customer[]>(() => storeCustomer.customers.filter((c) =>
+  c.name.toLocaleLowerCase().includes(location.value.customer.name.toLocaleLowerCase()))
+);
 
 </script>

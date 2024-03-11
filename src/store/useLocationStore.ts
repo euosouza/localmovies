@@ -5,6 +5,7 @@ import { useStorage } from "@vueuse/core";
 import { Status, Location, LocationCreateProps } from "../types/locationTypes";
 import { Status as StatusUser} from "../types/userTypes";
 import { Status as StatusCustomer} from "../types/customerTypes";
+import { format, parseISO } from "date-fns";
 
 const CUSTOMER_1 = {
   id: 1, name: "Cliente 1", surname: "Sobrenome", cpf: "12345d6", status: StatusCustomer.ATIVO,
@@ -43,7 +44,7 @@ const USERS_DEFAULT: Location[] = [
   },
 ];
 
-export const useLocationStore = defineStore("users", () => {
+export const useLocationStore = defineStore("locations", () => {
   const locations = useStorage<Location[]>("locations", USERS_DEFAULT);
   const tabs = ref(["Id", "Cliente", "Filmes", "Data retirada", "Data entrega","Usuário","Status"]);
 
@@ -53,8 +54,13 @@ export const useLocationStore = defineStore("users", () => {
         l.customer.id === location.customer.id && l.status == Status.ALUGADO
       );
 
+      location.deliveryDate = format(parseISO(location.deliveryDate), "dd/MM/yyyy").toString();
+      console.log(location);
+
       if (!checkLocation) {
-        const payload = {id: locations.value.length + 2, ...location, status: Status.ALUGADO };
+        const payload: Location = {id: locations.value.length + 2, ...location,
+          status: Status.ALUGADO, rentDate: "" , user: USER_1
+        };
         locations.value = [...locations.value, payload];
         resolve(payload);
       } else {
