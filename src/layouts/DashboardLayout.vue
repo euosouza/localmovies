@@ -3,10 +3,10 @@
     <header class="h-16 border-b border-gray-300 flex justify-between items-center px-4">
       <LogoComponent class="w-40" />
       <div class="flex items-center gap-6">
-        <RouterLink to="/user/update/1"
+        <RouterLink :to="'/user/update/' + store.login.user_id"
         class="bg-gray-900 w-8 h-8 rounded-full flex items-center justify-center
         text-gray-50 font-bold hover:bg-gray-600 duration-300 ease-in">
-          <span>V</span>
+          <span>{{ firstLetterUser }}</span>
         </RouterLink>
         <button class="lg:hidden" @click="handleMenu">
           <FiMenu class="text-3xl" />
@@ -56,7 +56,9 @@
 
         <button class="flex items-center justify-center gap-2 bg-gray-900 h-12
           hover:bg-gray-700 duration-200 ease-in
-          box-border p-4 fill-current text-white stroke-2 rounded w-full">
+          box-border p-4 fill-current text-white stroke-2 rounded w-full"
+          @click="logout"
+        >
           <FiLogOut />
           Sair
         </button>
@@ -71,15 +73,37 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
+import { useLoginStore } from "../store/useLoginStore";
+import { useUsersStore } from "../store/useUsersStore";
+
 import { FiUser, FiUsers, FiVideo, FiRepeat, FiLogOut, FiMenu, FiX } from "vue3-icons/fi";
+
 import LogoComponent from "../components/LogoComponent.vue";
 
+const router = useRouter();
+
+const store = useLoginStore();
+const useStore = useUsersStore();
 const showMobile = ref(false);
 
 function handleMenu() {
   showMobile.value = !showMobile.value;
 }
+
+function logout() {
+  store.logout()
+  .then(() => router.push({ path: "/" }));
+}
+
+const firstLetterUser = computed(() => {
+  const user = useStore.users.find((u) => u.id === Number(store.login.user_id));
+
+  if(user) return user.name.substring(0, 1).toLocaleUpperCase();
+
+  return "";
+});
 
 
 </script>

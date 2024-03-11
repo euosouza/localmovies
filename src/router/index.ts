@@ -3,16 +3,18 @@ import { RouteRecordRaw, createRouter, createWebHashHistory } from "vue-router";
 import DashboardLayout from "../layouts/DashboardLayout.vue";
 import EmptyLayout from "../layouts/EmptyLayout.vue";
 
+import { useLoginStore } from "../store/useLoginStore";
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "Login",
     component: () => import(/* webpackChunkName: "login" */ "../views/LoginView.vue"),
-    meta: { layout: EmptyLayout }
+    meta: { layout: EmptyLayout, auth: false }
   },
   {
     path: "/user",
-    meta: { layout: DashboardLayout },
+    meta: { layout: DashboardLayout, auth: true },
     children: [
       {
         path: "",
@@ -35,7 +37,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/customer",
-    meta: { layout: DashboardLayout },
+    meta: { layout: DashboardLayout, auth: true },
     children: [
       {
         path: "",
@@ -58,7 +60,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/location",
-    meta: { layout: DashboardLayout },
+    meta: { layout: DashboardLayout, auth: true },
     children: [
       {
         path: "",
@@ -80,7 +82,7 @@ const routes: Array<RouteRecordRaw> = [
     name: "Movies",
     component: () =>
       import(/* webpackChunkName: "movies" */ "../views/MoviesView.vue"),
-      meta: { layout: DashboardLayout },
+      meta: { layout: DashboardLayout, auth: true },
   },
   {
     path: "/:pathMatch(.*)*",
@@ -95,6 +97,20 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes,
   linkActiveClass: "bg-gray-200 rounded font-bold stroke-2"
+});
+
+router.beforeEach((to, from, next) => {
+  const store = useLoginStore();
+
+  if (to.meta.auth) {
+    if (store.login.expired) {
+      next();
+    } else {
+      next("/");
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;
