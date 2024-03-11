@@ -99,7 +99,7 @@ const router = createRouter({
   linkActiveClass: "bg-gray-200 rounded font-bold stroke-2"
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, __, next) => {
   const store = useLoginStore();
 
   if (to.meta.auth) {

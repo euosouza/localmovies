@@ -1,3 +1,17 @@
+# Localmovies
+Localmovies, um software de gerenciamento de locação de filmes desenvolvido para facilitar o controle e organização das locações.
+
+## Installation
+Clone repositório - git clone https://github.com/kutia-software-company/vue3-starter.
+Instalar dependências do projeto — npm install.
+Rodar app — npm run dev
+
+## Tecnologias
+- Vue 3
+- Tailwind
+- Typescript
+- Pinia (gerenciamento de estado do app)
+- VueUse (armazenamento localstorage)
 
 ## APIs utilizadas:
 
@@ -49,5 +63,4 @@ Observações:
 
 - Usuários, clientes e locações devem ficar armazenados no local storage do navegador
 
-## Autenticação do usuário:
 
