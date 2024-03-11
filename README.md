@@ -2,7 +2,7 @@
 Localmovies, um software de gerenciamento de locação de filmes desenvolvido para facilitar o controle e organização das locações.
 
 ## Installation
-- Clone repositório - git clone https://github.com/kutia-software-company/vue3-starter.
+- Clone repositório - git clone https://github.com/euosouza/localmovies
 - Instalar dependências do projeto — npm install.
 - Rodar app — npm run dev
 
