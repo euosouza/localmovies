@@ -11,7 +11,7 @@
 
         <template #input>
           <InputBaseComponent
-            v-model="location.customer.name"
+            v-model="form.location.customer.name"
             placeholder="Digite o nome do cliente"
             type="search"
             id="customer"
@@ -37,7 +37,7 @@
             type="text"
             id="movie"
             required
-            v-model="location.movies"
+            v-model="form.location.movies"
           />
         </template>
       </InputWrapperComponent>
@@ -52,13 +52,17 @@
             type="date"
             id="deliveryDate"
             required
-            v-model="location.deliveryDate"
+            v-model="form.location.deliveryDate"
           />
         </template>
       </InputWrapperComponent>
 
-      <ButtonComponent title="Criar locação" type="submit"/>
     </div>
+    <div class="relative mt-1 ml-2">
+      <span v-if="form.error" class="text-red-500 text-xs absolute">{{ form.error }}</span>
+    </div>
+    <ButtonComponent class="mt-12" title="Criar locação" type="submit"/>
+    {{ form.location.deliveryDate }}
   </form>
 </template>
 
@@ -88,23 +92,36 @@ const initialCustomer = {
     }
 };
 
+type formType = {
+  error: string,
+  location: LocationCreateProps
+}
+
 const router = useRouter();
-const location= ref<LocationCreateProps>({ customer: initialCustomer,  movies: "", deliveryDate: "" });
+const form = ref<formType>({ error: "", location: { customer: initialCustomer,  movies: "", deliveryDate: "" }});
 const store = useLocationStore();
 const storeCustomer = useCustomersStore();
 
 function handleSubmit(e: Event) {
   e.preventDefault();
 
-  // TODO: Adicionar modal ou alert para ambos retornos
-  // TODO: Ainda preciso pegar o cliente da locação e passar como parametro
-  store.addLocationAsync(location.value)
+  const customer = storeCustomer.customers.find((c) =>
+    `${c.name} ${c.surname}` === form.value.location.customer.name);
+
+  if(!customer) {
+    form.value.error = "Usuário não encontrado";
+    return;
+  }
+
+  form.value.location.customer = {...customer};
+
+  store.addLocationAsync(form.value.location)
     .then(() => router.push({ path: "/location" }))
     .catch((e) => console.log(e));
 }
 
 const filterCustomer = computed<Customer[]>(() => storeCustomer.customers.filter((c) =>
-  c.name.toLocaleLowerCase().includes(location.value.customer.name.toLocaleLowerCase()))
+  c.name.toLocaleLowerCase().includes(form.value.location.customer.name.toLocaleLowerCase()))
 );
 
 </script>

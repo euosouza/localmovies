@@ -51,15 +51,16 @@ export const useLocationStore = defineStore("locations", () => {
   function addLocationAsync(location: LocationCreateProps) {
     return new Promise((resolve, reject) => {
       const checkLocation = locations.value.find((l) =>
-        l.customer.id === location.customer.id && l.status == Status.ALUGADO
+        l.customer.cpf === location.customer.cpf && l.status === Status.ALUGADO
       );
 
-      location.deliveryDate = format(parseISO(location.deliveryDate), "dd/MM/yyyy").toString();
-      console.log(location);
-
+      location.deliveryDate = format(parseISO(location.deliveryDate), "dd/MM/yyyy");
+      
       if (!checkLocation) {
+        const date = new Date().toISOString();
+
         const payload: Location = {id: locations.value.length + 2, ...location,
-          status: Status.ALUGADO, rentDate: "" , user: USER_1
+          status: Status.ALUGADO, rentDate: format(date, "dd/MM/yyyy") , user: USER_1
         };
         locations.value = [...locations.value, payload];
         resolve(payload);
