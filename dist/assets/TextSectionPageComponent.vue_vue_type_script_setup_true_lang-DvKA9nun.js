@@ -1,0 +1,1 @@
+import{d as o,o as r,c as a,a as t,t as n,F as s}from"./index-BwxMtfXP.js";const c={class:"text-3xl font-bold"},u=o({__name:"TextSectionPageComponent",props:{title:{type:String,required:!0},text:{type:String,required:!0}},setup(e){return(i,l)=>(r(),a(s,null,[t("h1",c,n(e.title),1),t("p",null,n(e.text),1)],64))}});export{u as _};
