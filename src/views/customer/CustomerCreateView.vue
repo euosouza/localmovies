@@ -96,6 +96,7 @@
             id="cep"
             required
             v-model="customer.address.zipCode"
+            @update:model-value="searchCEP"
           />
         </template>
       </InputWrapperComponent>
@@ -177,12 +178,26 @@ const customer= ref<CustomerCreateProps>({
 );
 const { addCustomerAsync } = useCustomersStore();
 
-async function handleSubmit(e: Event) {
+function handleSubmit(e: Event) {
   e.preventDefault();
 
   // TODO: Adicionar modal ou alert para ambos retornos
   addCustomerAsync(customer.value)
     .then(() => router.push({ path: "/customer" }))
     .catch((e) => console.log(e));
+}
+
+function searchCEP() {
+  if(customer.value.address.zipCode.length >= 8) {
+    fetch(`http://viacep.com.br/ws/${customer.value.address.zipCode}/json/`)
+    .then((response) => response.json())
+    .then(address => {
+      customer.value.address.city = address.localidade;
+      customer.value.address.neighborhood = address.bairro;
+      customer.value.address.publicPlace = `${address.logradouro}, ${address.complemento}`;
+      customer.value.address.state = address.uf;
+      customer.value.address.zipCode = address.cep;
+    });
+  }
 }
 </script>
