@@ -1,6 +1,8 @@
 <template>
-  <h1>EmptyLayout</h1>
-  <slot></slot>
+  <div class="flex flex-col gap-2 justify-center items-center h-screen">
+    <slot></slot>
+
+  </div>
 </template>
 
 
